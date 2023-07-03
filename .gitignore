@@ -1,10 +1,12 @@
 .metadata
-Servers/
+/Servers/
+
+# 컴파일 폴더 제외
 target/
+bin/
 
 .classpath
 .project
 .springBeans
 
 .settings/
-
