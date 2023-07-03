@@ -1,11 +1,8 @@
 package com.ezen.springmvc.model;
 
-import org.springframework.stereotype.Component;
-
-@Component
 public class Student {
 
-	private String name;
+	protected String name;
 	private String grade;
 
 	public Student() {
