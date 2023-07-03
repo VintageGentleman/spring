@@ -1,0 +1,12 @@
+00_설치.txt
+
+# Spring Legacy Project 환경 설정하기
+
+	1. JDK 11 설치
+	2. sts3 다운로드
+	3. sts.ini의 내용에 -vm으로 jdk/bin/javaw.exe의 경로 등록 (반드시 STS 재시작) 
+	4. Windows - Preferences - encoding 검색 후 모두 UTF-8로 변경
+	5. File - New - Spring Legacy Project - Spring MVC Project
+	6. top-level package 설정 (com.company.appname)
+	7. Servers에 있는 기본 서버 지우고 Tomcat 등록
+	8. 빨간 줄이 사라지지 않는다면 프로젝트 생성 후 Maven - Update Project
