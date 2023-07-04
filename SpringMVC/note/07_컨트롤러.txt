@@ -1,0 +1,87 @@
+07_컨트롤러.txt
+
+
+# MVC 디자인 패턴
+
+	- 프로그램을 효율적으로 개발하기 위해서 코드를 3가지로 구분하여 개발을 진행하고자 하는 디자인 패턴
+	- 프로그램의 비즈니스 로직과 화면을 구분하는데에 초점을 맞춘 디자인 패턴
+	- Model, View, Controller 세 가지로 나뉜다
+	- Model : 데이터를 형태로 표현하기 위한 용도의 코드
+	- View : 사용자에게 보여지는 화면을 꾸미기 위한 용도의 코드 (html, css, js, jsp, ...)
+	- Controller : 요청을 받으면 어떤 서비스를 거쳐 어떤 뷰로 가야할지를 결정하는 코드
+	 
+# @Controller
+
+	- 해당 클래스가 MVC 패턴 중 Controller임을 표시하는 어노테이션
+	- spring-context가 자동으로 수거해 알아서 사용한다
+	- uri + method에 대해 어떤 처리를 하고 어떤 뷰로 가야하는지를 정의하는 곳이다  
+	- 다른 uri에서 같은 처리를 진행할 수도 있으므로 컨트롤러에서 비즈니스 로직을 구현하는 것은 바람직하지 않다
+	
+# 컨트롤러에서 자동으로 받을 수 있는 인자값들
+
+  1. HttpServletRequest
+  
+  	- 컨트롤러에서 JSP의 requset 객체를 받아서 사용할 수 있다
+  	
+  2. HttpServletResponse
+  
+  	- 컨트롤러에서 JSP의 response 객체를 받아서 사용할 수 있다
+
+  3. 자바빈 형태의 모델 객체
+  
+  	- 파라미터의 이름과 모델 객체의 필드명이 동일하다면 값을 바인딩해준다
+  	- 심지어, 데이터 타입도 알아서 변환해준다
+  	  (파라미터는 원래 String이었지만 age를 Integer로 변환하여 넣어준다)
+  	- 만약 바인딩이 성공했다면 view에서 사용할 수 있도록 자동으로 어트리뷰트에 추가해준다
+  	
+  4. 전달받는 파라미터의 name과 같은 이름의 매개변수
+  
+  	- 메서드에 파라미터와 같은 이름의 매개변수를 선언해두면 값이 알아서 바인딩된다
+  	- 타입도 알아서 변환해준다
+  	- 기본적으로 어트리뷰트에 자동으로 추가되지는 않는다
+  	- 매개변수 앞에 @ModelAttribute("name")을 사용하는 경우 어트리뷰트에도 추가된다 
+ 
+  5. HttpSession
+  
+  	- 세션 객체를 꺼내 활용할 수 있다
+  	
+# 컨트롤러의 리턴 타입
+
+  1. 다음 view 페이지를 찾는 타입
+  
+  	- String : 리턴하는 문자열의 앞에는 /WEB-INF/views/를 더하고 뒤에는 .jsp를 더해 다음 view페이지를 찾아 포워드한다.
+  			   리턴하는 문자열 앞에 redirect:를 붙이면 리다이렉트를 응답한다.
+  			
+  	- void : 컨트롤러로 접속할 때 사용했던 URI를 그대로 사용해 view를 찾는다
+  
+  2. view를 찾지 않는 타입
+  
+  	- 자바빈 객체 타입으로 리턴 : 웹 페이지 코드 대신 데이터를 바로 응답한다
+  	
+  	- ResponseEntity : 직접 원하는 응답을 생성하여 응답한다 (직접 커스텀) 
+  
+  
+# 한글이 깨질 때(web.xml 필터 설정)
+ 
+	<!-- UTF-8 Encoding Filter -->
+	<filter>
+		<filter-name>encodingFilter</filter-name>
+		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+		<init-param>
+			<param-name>forceEncoding</param-name>
+			<param-value>true</param-value>
+		</init-param>
+	</filter>
+	
+	<filter-mapping>
+		<filter-name>encodingFilter</filter-name>
+		<servlet-name>appServlet</servlet-name>
+	</filter-mapping>  	
+  	
+
+  	
+  	

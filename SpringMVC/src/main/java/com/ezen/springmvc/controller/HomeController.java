@@ -1,4 +1,4 @@
-package com.ezen.springmvc;
+package com.ezen.springmvc.controller;
 
 import java.util.Date;
 import java.util.Locale;
@@ -34,8 +34,8 @@ public class HomeController {
 			log.info(sum += i);
 		}
 		
-		log.fatal("심각한 오류");
-		log.error("에러");
+		log.fatal("FATAL 출력");
+		log.error("ERROR 출력");
 		model.addAttribute("serverTime", new Date());
 		
 		return "home";
