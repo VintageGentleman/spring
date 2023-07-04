@@ -10,5 +10,7 @@
 	
 	<p><span style="color: red;">void</span>로 찾아온 페이지</p>
 	
+	<p>${name}</p>
+	
 </body>
 </html>

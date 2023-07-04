@@ -7,11 +7,13 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.ezen.springmvc.model.Survey;
 
@@ -79,6 +81,25 @@ public class HelloController {
 	}
 
 	@GetMapping("/test/abc")
-	void index() {}
+	void index(Model model) {
+		// request.setAttribute()와 같은 것
+		model.addAttribute("name", "I'm index1");
+	}
+
+	@GetMapping("/test/abc2")
+	ModelAndView index2() {
+		ModelAndView mnv = new ModelAndView();
+
+		// Model : 어트리뷰트 역할
+		// View : 다음으로 가야할 페이지를 정의
+		
+		// 어트리뷰트 추가
+		mnv.addObject("name", "I'm index2");
+		
+		// 다음으로 가야할 뷰 설정
+		mnv.setViewName("test/abc");
+		
+		return mnv;
+	}
 	
 }
