@@ -15,7 +15,7 @@
 	<c:forEach items="${paging.pageList}" var="pageNum">
 		<c:choose>
 			<c:when test="${pageNum == paging.currPage}">
-				<button id="currBtn" class="btn" onclick="location.href='./list?page=${prePage}'">${pageNum}</button> 
+				<button id="currBtn" class="btn" onclick="location.href='./list?page=${pageNum}'">${pageNum}</button> 
 			</c:when>
 			<c:otherwise>
 				<button class="btn" onclick="location.href='./list?page=${pageNum}'">${pageNum}</button>
