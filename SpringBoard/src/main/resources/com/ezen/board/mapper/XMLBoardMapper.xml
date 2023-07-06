@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ezen.board.mapper.XMLBoardMapper">
+  <select id="getBoard" parameterType="int" resultType="com.ezen.board.dto.BoardDTO">
+  	SELECT * FROM board WHERE board_id = #{board_id}
+  </select>
+  <update id="updateBoard" parameterType="com.ezen.board.dto.BoardDTO">
+  	UPDATE board SET
+		board_title = '${board_title}',
+		board_content = '${board_content}',
+		write_date = SYSDATE
+	WHERE board_id = ${board_id} 
+  </update>
+</mapper>  

@@ -1,12 +1,8 @@
 package com.ezen.springdatabase;
 
-import java.text.DateFormat;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,45 +13,34 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.ezen.springdatabase.common.Pagination;
 import com.ezen.springdatabase.dto.BoardDTO;
 import com.ezen.springdatabase.mapper.BoardMapper;
+import com.ezen.springdatabase.mapper.XMLBoardMapper;
 
-/**
- * Handles requests for the application home page.
- */
+import lombok.extern.log4j.Log4j;
+
+@Log4j
 @Controller
 public class HomeController {
 	
-	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
+	@Autowired
+	BoardMapper dao;
+
+	@Autowired
+	XMLBoardMapper xmlBoardMapper;
 	
-	/**
-	 * Simply selects the home view to render by returning its name.
-	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
-		logger.info("Welcome home! The client locale is {}.", locale);
-		
-		Date date = new Date();
-		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
-		
-		String formattedDate = dateFormat.format(date);
-		
-		model.addAttribute("serverTime", formattedDate );
-		
 		return "home";
 	}
 	
-	@Autowired
-	BoardMapper dao;
-	
 	@GetMapping("/board/list")
-	public String list(int page, Model model) {
-		
+	public String list(Integer page, Model model) {
 		List<BoardDTO> boardList;
 		
 		Pagination paging = new Pagination(dao.getTotalPostCount());
 		
 		model.addAttribute("paging", paging);
 
-		if(page == 1) {
+		if(page == null) {
 			boardList = dao.getPage(1, 10);
 			paging.setCurrPage(1);
 		} else {
@@ -67,6 +52,25 @@ public class HomeController {
 		model.addAttribute("pageList", paging.getPageList());
 		
 		return "/board/list";
+	}
+	
+	@GetMapping("/board/all")
+	public void all() {
+		for(BoardDTO board : xmlBoardMapper.getAll()) {
+			log.info(board);
+		}
+	}
+	
+	@GetMapping("/board/add")
+	public void add() {
+		BoardDTO board = new BoardDTO();
+		
+		board.setWriter("XML_Tester");
+		board.setBoard_title("XML Test");
+		board.setBoard_content("대충 내용");
+		board.setBoard_pw("xml");
+		
+		log.info("결과: " + xmlBoardMapper.add(board));
 	}
 	
 }

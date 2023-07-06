@@ -52,6 +52,27 @@
 	- @Insert, @Update, @Delete로 업데이트 된 행을 리턴하므로 정수타입으로 리턴해준다
 	- @Insert, @Update시에 파라미터를 자바빈 데이터 클래스 형식으로 넘기면 파라미터에 #{property}를 사용할 수 있다
 		
+
+# XML 방식 Mapper
+
+	1. Mapper Interface를 생성한다 (메서드만 정의하고 어노테이션은 사용하지 않는다)
+	2. resource 밑에 해당 Mapper가 속한 패키지의 경로대로 폴더를 생성한다
+	   (폴더를 하나씩 생성하는 것이 좋다)
+ 	3. 해당 폴더에 같은 이름의 Mapper.xml을 생성한다
+ 	4. xml의 형식은 mybatis의 공식 페이지를 참조한다
+ 	
+ 	
+	     
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	
