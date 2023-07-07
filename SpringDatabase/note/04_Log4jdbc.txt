@@ -1,0 +1,47 @@
+04_Log4jdbc.txt
+
+# Log4jdbc
+
+	- jdbc에서 발생하는 작업들을 로그로 찍어주는 라이브러리
+	- 디버깅이 매우 수월해진다
+	
+# 적용 순서
+
+  1. pom.xml에 등록
+  
+	<dependency>
+	    <groupId>org.bgee.log4jdbc-log4j2</groupId>
+	    <artifactId>log4jdbc-log4j2-jdbc4.1</artifactId>
+	    <version>1.16</version>
+	</dependency>
+		
+  2. jdbcUrl, driverClassName 설정
+  
+	<property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy" /> 
+	<property name="jdbcUrl" value="jdbc:log4jdbc:oracle:thin:@localhost:1521:XE" />
+	
+  3. resource에 log4jdbc.log4j2.properties 파일 추가
+  
+	파일명: log4jdbc.log4j2.properties
+	파일내용: log4jdbc.spylogdelegator.name=net.sf.log4jdbc.log.slf4j.Slf4jSpyLogDelegator
+
+  4. log4j.xml에 logger 추가
+
+	<!-- Log4jdbc Loggers -->
+	<logger name="jdbc.sqltiming">
+		<level value="info"/>
+	</logger>
+	
+	<logger name="jdbc.resultsettable">
+		<level value="info"/>
+	</logger>
+  
+	jdbc.sqlonly	: 실행하는 SQL문을 출력한다.
+	jdbc.sqltiming	: 실행하는 SQL문과 실행하는데 걸린 시간을 출력한다. 
+	jdbc.audit      : ResultSet을 제외한 모든 JDBC 실행 과정을 출력한다.
+	jdbc.resultset	: 모든 ResultSet의 실행 과정을 출력한다. 
+	jdbc.resultsettable	: 쿼리 실행 결과를 표로 출력해준다.
+						  로깅 레벨을 debug로 설정하면 읽히지 않았던 값들도 모두 출력해준다.  
+	jdbc.connection : JDBC connection을 생성하고 닫는 과정을 출력한다.
+					  메모리 누수(close를 하지 않아서 발생하는 문제)를 해결할 때 사용한다.	   
+  

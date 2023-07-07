@@ -9,7 +9,8 @@
 		#items {
 			display: grid;
 			grid-template-columns: repeat(5, 1fr);
-			gap-column: 10px;
+			column-gap: 10px;
+			row-gap: 10px;
 		}
 		#items > div {
 			text-align: center;
@@ -35,7 +36,7 @@
 		<div>${board.board_title}</div>
 		<div>${board.board_content}</div>
 		<div>
-			<button onclick="location.href='./list/update?id=${board.board_id}';">수정하기</button>
+			<button onclick="location.href='./modify?id=${board.board_id}';">수정하기</button>
 		</div>
 	</c:forEach>
 	</div>

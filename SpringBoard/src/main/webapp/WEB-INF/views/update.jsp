@@ -18,7 +18,7 @@
 </head>
 <body>
 	<h3>${board.board_id}번 글 수정하기</h3>	
-	<form action="./execute">
+	<form action="./list/execute" method="POST">
 		제목 <br>
 		<input id="title" type="text" name="board_title" value="${board.board_title}"/> 
 		<br>

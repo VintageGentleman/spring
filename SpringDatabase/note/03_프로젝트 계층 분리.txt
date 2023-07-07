@@ -1,0 +1,71 @@
+03_프로젝트 계층 분리.txt
+
+
+# 프로젝트 계층
+
+	- 프로젝트를 구성하는 소스 코드들은 계층별로 분리한 것
+	- 화면 계층 (Presentation Layer)
+	- 비즈니스 계층 (Business Layer)
+	- 영속 계층 (Persistence Layer)
+
+	
+# 화면 계층
+
+	- 화면에 보이는 코드를 작성하는 계층
+	
+	
+# 비즈니스 계층
+
+	- 고객의 요구사항과 관련된 내용을 구현하는 계층
+	- 하나의 요청이 여러 개의 비즈니스 로직을 요구하거나 
+	  하나의 비즈니스 로직이 여러 요청에서 사용되는 경우가 있기 때문에 
+	  계층의 분리가 필요하다
+
+	  
+# 영속 계층
+
+	- 저장되어있는 데이터를 꺼내오는 작업을 구현하는 계층
+	- 하나의 비즈니스 로직이 데이터에 여러번 접근해야 하는 경우도 있고
+	  하나의 데이터가 여러 비즈니스 로직에 사용되는 경우가 있기 때문에
+	  계층의 분리가 필요하다
+	  
+
+# 스프링 웹 프로젝트에서 각 계층에 대한 클래스 이름 규칙
+
+	- 비즈니스 로직 : xxxService(인터페이스), xxxServiceImpl(인터페이스 구현)
+	- 영속 계층 : xxxMapper(Mybatis), xxxDao, xxxRepository
+			   (저장소, DB에 데이터를 저장하거나 꺼내는 역할을 하는 클래스들) 
+	- 데이터 클래스 : xxxVO(Getter만 붙은 읽기 전용), xxxDTO(Getter/Setter 보유)
+	
+	
+# 웹 프로젝트에서 패키지를 나누는 방식
+
+	- 프로젝트 규모가 작은 경우
+	
+	  컨트롤러, 비즈니스 계층, 영속 계층, DTO를 구분할 수 있도록 패키지를 작성한다
+	  
+	  ex) com.company.bookstore.controller.BookListController
+	  	  com.company.bookstore.service.BookListService
+	  	  com.company.bookstore.mapper.BookListMapper
+	  	  com.company.bookstore.dto.BookDTO
+	  	  
+	- 프로젝트 규모가 큰 경우
+	
+	  우선 비즈니스 단위별로 패키지 구분을 한 뒤 다시 내부에서 각 계층을 구분한다
+	  
+	  ex) com.company.bookstore.booklist.controller.IndexController
+	      com.company.bookstore.booklist.controller.BookDetailController
+	      com.company.bookstore.booklist.service.IndexService
+	      ...
+	      
+	      com.company.bookstore.membership.controller.RegisterController
+	      com.company.bookstore.membership.controller.MyPageController
+	      ...
+
+
+
+
+
+
+
+	
