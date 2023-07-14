@@ -11,5 +11,5 @@ bin/
 
 .settings/
 
-#팀플 제외
+# 팀플 제외
 /Spring_Project/
