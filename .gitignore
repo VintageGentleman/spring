@@ -10,3 +10,6 @@ bin/
 .springBeans
 
 .settings/
+
+# 팀플 제외
+/Spring_Project/
